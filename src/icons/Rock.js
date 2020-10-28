@@ -2,7 +2,7 @@ import React from "react";
 
 export default function() {
   return (
-    <span>✊</span>
+    <span className="button-icon rock-icon">✊</span>
     // <svg
     //   xmlns="http://www.w3.org/2000/svg"
     //   x="0px"

@@ -11,37 +11,40 @@ const choices = [
   { id: 3, name: 'scissors', component: Scissors, lossesTo: 1 },
   { id: 4, name: 'hammer', component: Hammer, lossesTo: 4 },
 ];
+const popupTitles = {
+  win: 'Да!',
+  lose: 'Эх!',
+  draw: 'Ничья',
+  hammer: 'Ауч!!',
+};
 
 export default function App() {
   const [userChoice, setUserChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState({});
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
-  const [surprise, setSurprise] = useState(0);
+  const [hammered, setHammered] = useState(null);
   
-  const [isSelect, setIsSelect] = useState(false);
+  const [isNoPointer, setIsNoPointer] = useState(false);
   const [gameState, setGameState] = useState(null);
 
   const handleChoice = (choice) => {
-    setIsSelect(true)
+    setIsNoPointer(true)
     const chosenChoice = choices.find(({ id }) => id === choice);
     setUserChoice(chosenChoice);
     setTimeout(() => {
       if (chosenChoice.lossesTo === computerChoice.id) {
         setLosses((losses) => ++losses);
-        setGameState('lose');
-        setIsSelect(false)
+        setGameState('lose');        
       } else if (computerChoice.lossesTo === chosenChoice.id) {
         setWins((wins) => ++wins);
-        setGameState('win');
-        setIsSelect(false)
+        setGameState('win');        
       } else if (chosenChoice.lossesTo === computerChoice.lossesTo) {
-        setGameState('draw');
-        setIsSelect(false)
+        setGameState('draw');        
       } else {             
         setGameState('hammer');
-        setIsSelect(false);
       }
+      setIsNoPointer(false);
     }, 1000)
     
     
@@ -52,19 +55,16 @@ export default function App() {
   };
 
   const restartGame = () => {
-    
-    setGameState(null);
+    setHammered(null);
+    if(gameState == 'hammer')setHammered(userChoice.id);
     setUserChoice(null)
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
     setComputerChoice(randomChoice);    
-    setSurprise(Math.random() > 0.75 ? 0 : 1)
+    setGameState(null);
+     
   };
-  const popupTitles = {
-    win: 'Да!',
-    lose: 'Эх!',
-    draw: 'Ничья',
-    hammer: 'Ауч!!',
-  };
+
+ 
 
   useEffect(() => {
     restartGame();
@@ -73,7 +73,7 @@ export default function App() {
   return (
     <div className="app">
       <div className="info">
-        <h2>Камень Ножницы Бумага</h2>
+        <h2>Камень&nbsp;&nbsp;Ножницы&nbsp;&nbsp;Бумага</h2>
 
         
       </div>
@@ -95,16 +95,16 @@ export default function App() {
         
 
         {/* buttons for my choice */}
-        <div className={`users-buttons ${isSelect ? 'no-pointer' : ''}`}>
-          <button className="rock" onClick={() => handleChoice(1)}>
+        <div className={`users-buttons ${isNoPointer ? 'no-pointer' : ''}`}>
+          {hammered != 1 ? (<button className="user-choice" onClick={() => handleChoice(1)}>
             <Rock />
-          </button>
-          <button className="scissors" onClick={() => handleChoice(3)}>
+          </button>) : null}
+          {hammered != 3 ? (<button className="user-choice" onClick={() => handleChoice(3)}>
             <Scissors />
-          </button>
-          <button className="paper" onClick={() => handleChoice(2)}>
+          </button>) : null}
+          {hammered != 2 ? (<button className="user-choice" onClick={() => handleChoice(2)}>
             <Paper /> 
-          </button>
+          </button>) : null}
         </div>
 
         <div className="vs">vs</div>
