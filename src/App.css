@@ -278,6 +278,13 @@ p {
     width: 80px;
   }
 }
+@media (max-width: 400px) {
+  
+  .tooltip{
+    bottom: 5px;
+  right: 5px;
+  }
+}
 @media (max-width: 350px) {
   .choices {
     padding: 10px;
@@ -288,9 +295,5 @@ p {
   .choices button {
     width: 90px;
     height: 90px;
-  }
-  .tooltip{
-    bottom: 5px;
-  right: 5px;
-  }
+  }  
 }
