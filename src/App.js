@@ -28,32 +28,30 @@ export default function App() {
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
   const [hammered, setHammered] = useState(null);
-  
+
   const [isNoPointer, setIsNoPointer] = useState(false);
   const [gameState, setGameState] = useState(null);
   const ref = useRef();
 
   const handleChoice = (choice) => {
-    setIsNoPointer(true)
+    setIsNoPointer(true);
     const chosenChoice = choices.find(({ id }) => id === choice);
     setUserChoice(chosenChoice);
-    if(computerChoice.id == 4)ref.current.textContent = 'и молоток!';
+    if (computerChoice.id == 4) ref.current.textContent = 'и молоток!';
     setTimeout(() => {
       if (chosenChoice.lossesTo === computerChoice.id) {
         setLosses((losses) => ++losses);
-        setGameState('lose');        
+        setGameState('lose');
       } else if (computerChoice.lossesTo === chosenChoice.id) {
         setWins((wins) => ++wins);
-        setGameState('win');        
+        setGameState('win');
       } else if (chosenChoice.lossesTo === computerChoice.lossesTo) {
-        setGameState('draw');        
-      } else {             
+        setGameState('draw');
+      } else {
         setGameState('hammer');
       }
       setIsNoPointer(false);
-    }, 1000)
-    
-    
+    }, 1000);
   };
   const renderComponent = (choice) => {
     const Component = choice?.component;
@@ -62,79 +60,74 @@ export default function App() {
 
   const restartGame = () => {
     setHammered(null);
-    if(gameState == 'hammer')setHammered(userChoice.id);
-    setUserChoice(null)
+    if (gameState == 'hammer') setHammered(userChoice.id);
+    setUserChoice(null);
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-    setComputerChoice(randomChoice);    
+    setComputerChoice(randomChoice);
     setGameState(null);
-     
   };
-
- 
 
   useEffect(() => {
     restartGame();
   }, []);
 
   return (
-    <div className="app">
-      <div className="info">
+    <div className='app'>
+      <div className='info'>
         <h2>Камень&nbsp;&nbsp;Ножницы&nbsp;&nbsp;Бумага</h2>
         <h5 ref={ref}>и...</h5>
-
-        
       </div>
 
       {gameState && (
         <div className={`game-state ${gameState}`} onClick={restartGame}>
-          
-            <div className="game-state-content">
-              <p>{renderComponent(userChoice)}</p>
-              <p>{popupTitles[gameState]}</p>
-              <p className="computer-choice">{renderComponent(computerChoice)}</p>
-            </div>
-          
+          <div className='game-state-content'>
+            <div>{renderComponent(userChoice)}</div>
+            <p>{popupTitles[gameState]}</p>
+            <div className='computer-choice'>{renderComponent(computerChoice)}</div>
+          </div>
         </div>
       )}
 
-      <div className="choices">
-       
-        
-
-       
+      <div className='choices'>
         <div className={`users-buttons ${isNoPointer ? 'no-pointer' : ''}`}>
-          {hammered != 1 ? (<button className="user-choice" onClick={() => handleChoice(1)}>
-            <Rock />
-          </button>) : null}
-          {hammered != 3 ? (<button className="user-choice" onClick={() => handleChoice(3)}>
-            <Scissors />
-          </button>) : null}
-          {hammered != 2 ? (<button className="user-choice" onClick={() => handleChoice(2)}>
-            <Paper /> 
-          </button>) : null}
+          {hammered != 1 ? (
+            <button className='user-choice' onClick={() => handleChoice(1)}>
+              <Rock />
+            </button>
+          ) : null}
+          {hammered != 3 ? (
+            <button className='user-choice' onClick={() => handleChoice(3)}>
+              <Scissors />
+            </button>
+          ) : null}
+          {hammered != 2 ? (
+            <button className='user-choice' onClick={() => handleChoice(2)}>
+              <Paper />
+            </button>
+          ) : null}
         </div>
 
-       
-        <ActionSlogan  />
-       
-       
-      <button className="computer-choice">{userChoice ? renderComponent(computerChoice) : <Rock />}</button>
-       
+        <ActionSlogan />
+
+        <button className='computer-choice'>{userChoice ? renderComponent(computerChoice) : <Rock />}</button>
+        <div className='wins-losses'>
+        <div className='wins'>
+          <span className='number'>{wins}</span>
+        </div>
+
+        <div className='losses'>
+          <span className='number'>{losses}</span>
+        </div>
       </div>
-      <div className="wins-losses">
-          <div className="wins">
-            <span className="number">{wins}</span>
-          </div>
-
-          <div className="losses">
-            <span className="number">{losses}</span>
-          </div>
-        </div>
-        <Tippy content='Игра "Камень, Ножницы, Бумага"
+      </div>
+     
+      <Tippy
+        content='Игра "Камень, Ножницы, Бумага"
           была изобретена в Китае во времена поздней династии Мин.
           "Цу-е-фа" с китайского дословно переводится как
-         "Пожалуйста, начинайте!"'>
-      <i className="tooltip fas fa-info-circle"></i>
+         "Пожалуйста, начинайте!"'
+      >
+        <i className='tooltip fas fa-info-circle'></i>
       </Tippy>
     </div>
   );
