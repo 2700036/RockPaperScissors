@@ -3,7 +3,11 @@ import Rock from './icons/Rock';
 import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 import Hammer from './icons/Hammer';
+import Tippy from '@tippyjs/react';
+
+import 'tippy.js/dist/tippy.css';
 import './App.css';
+import ActionSlogan from './icons/ActionSlogan';
 
 const choices = [
   { id: 1, name: 'rock', component: Rock, lossesTo: 2 },
@@ -27,11 +31,13 @@ export default function App() {
   
   const [isNoPointer, setIsNoPointer] = useState(false);
   const [gameState, setGameState] = useState(null);
+  const ref = useRef();
 
   const handleChoice = (choice) => {
     setIsNoPointer(true)
     const chosenChoice = choices.find(({ id }) => id === choice);
     setUserChoice(chosenChoice);
+    if(computerChoice.id == 4)ref.current.textContent = 'и молоток!';
     setTimeout(() => {
       if (chosenChoice.lossesTo === computerChoice.id) {
         setLosses((losses) => ++losses);
@@ -74,6 +80,7 @@ export default function App() {
     <div className="app">
       <div className="info">
         <h2>Камень&nbsp;&nbsp;Ножницы&nbsp;&nbsp;Бумага</h2>
+        <h5 ref={ref}>и...</h5>
 
         
       </div>
@@ -91,10 +98,10 @@ export default function App() {
       )}
 
       <div className="choices">
-        {/* choices captions */}
+       
         
 
-        {/* buttons for my choice */}
+       
         <div className={`users-buttons ${isNoPointer ? 'no-pointer' : ''}`}>
           {hammered != 1 ? (<button className="user-choice" onClick={() => handleChoice(1)}>
             <Rock />
@@ -107,12 +114,12 @@ export default function App() {
           </button>) : null}
         </div>
 
-        <div className="vs">vs</div>
-
-        {/* show the computer's choice */}
-        <div>
+       
+        <ActionSlogan  />
+       
+       
       <button className="computer-choice">{userChoice ? renderComponent(computerChoice) : <Rock />}</button>
-        </div>
+       
       </div>
       <div className="wins-losses">
           <div className="wins">
@@ -123,6 +130,12 @@ export default function App() {
             <span className="number">{losses}</span>
           </div>
         </div>
+        <Tippy content='Игра "Камень, Ножницы, Бумага"
+          была изобретена в Китае во времена поздней династии Мин.
+          "Цу-е-фа" с китайского дословно переводится как
+         "Пожалуйста, начинайте!"'>
+      <i className="tooltip fas fa-info-circle"></i>
+      </Tippy>
     </div>
   );
 }
