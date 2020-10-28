@@ -219,33 +219,7 @@ p {
   color: #fff;
   font-size: 80px;
 }
-@media (max-width: 700px) {
-  .game-state > div {
-    width: 80%;
-  }
-  .app {
-    padding: 5px;
-  }
-  .game-state-content .button-icon {
-    width: 80px;
-  }
-}
-@media (max-width: 350px) {
-  .choices {
-    padding: 10px;
-  }
-  .info {
-    font-size: 20px;
-  }
-  .choices button {
-    width: 90px;
-    height: 90px;
-  }
-  .tooltip{
-    bottom: 5px;
-  right: 5px;
-  }
-}
+
 
 .game-state-content {
   display: flex;
@@ -293,3 +267,30 @@ p {
   color:#333333;
 }
 
+@media (max-width: 700px) {
+  .game-state > div {
+    width: 80%;
+  }
+  .app {
+    padding: 5px;
+  }
+  .game-state-content .button-icon {
+    width: 80px;
+  }
+}
+@media (max-width: 350px) {
+  .choices {
+    padding: 10px;
+  }
+  .info {
+    font-size: 20px;
+  }
+  .choices button {
+    width: 90px;
+    height: 90px;
+  }
+  .tooltip{
+    bottom: 5px;
+  right: 5px;
+  }
+}
