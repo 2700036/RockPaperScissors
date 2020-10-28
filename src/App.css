@@ -261,10 +261,10 @@ p {
   bottom: 20px;
   right: 20px;
   font-size: 35px;
-  color: #424242;
+  color:#d7d7d7;
 }
 .tooltip:hover {
-  color:#333333;
+  color:#5dc674;
 }
 
 @media (max-width: 700px) {
