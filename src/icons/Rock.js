@@ -1,8 +1,10 @@
 import React from "react";
+import rock from './rock.svg'
 
 export default function() {
   return (
-    <span className="button-icon rock-icon">✊</span>
+    
+    <img className="button-icon rock-icon" src={rock} alt="icon"/>
     // <svg
     //   xmlns="http://www.w3.org/2000/svg"
     //   x="0px"

@@ -1,8 +1,9 @@
 import React from "react";
+import scissors from './scissors.svg'
 
 export default function() {
   return (
-    <span className="button-icon scissors-icon">✌</span>
+    <img className="button-icon scissors-icon" src={scissors} alt="icon"/>
     // <svg
     //   xmlns="http://www.w3.org/2000/svg"
     //   x="0px"

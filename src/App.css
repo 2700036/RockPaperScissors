@@ -133,10 +133,14 @@ p {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 53px;
   transform: translate(-52%, -57%);
 }
 .choices .paper-icon {
   transform: translate(-45%, -57%);
+}
+.choices .rock-icon {
+  transform: translate(-52%, -48%);
 }
 .computer-choice {
   color: #bbb;
@@ -144,8 +148,8 @@ p {
   /* transform: rotate(90deg) scaleX(-1); */
 }
 
-.user-choice:hover {
-  font-size: 70px;
+.user-choice:hover .button-icon{
+  width: 55px;
 }
 
 .choices .hammer-icon {
@@ -222,6 +226,9 @@ p {
   .app {
     padding: 5px;
   }
+  .game-state-content .button-icon {
+    width: 80px;
+  }
 }
 @media (max-width: 350px) {
   .choices {
@@ -251,10 +258,11 @@ p {
   display: flex;
   align-items: center;
 }
-
-.game-state-content svg {
+.game-state-content .button-icon {
   width: 100px;
 }
+
+
 
 .game-state button {
   margin-bottom: -5%;
@@ -272,9 +280,7 @@ p {
 .no-pointer {
   pointer-events: none;
 }
-.hammer-icon {
-  transform: rotate(90deg);
-}
+
 
 .tooltip {
   position: absolute;
